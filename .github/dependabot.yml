@@ -1,15 +1,20 @@
 version: 2
+registries:
+  redhat-registry:
+    type: docker-registry
+    url: https://registry.access.redhat.com
+    username: ${{secrets.REDHAT_USERNAME}}
+    password: ${{secrets.REDHAT_PASSWORD}}
+
 updates:
   - package-ecosystem: "docker"
-    directory: "/"
+    directory: "/"  # Path to your Dockerfile(s)
+    registries:
+      - redhat-registry
     schedule:
       interval: "daily"
-    registries:
-      - redhat
-    reviewers:
-      - "MajidEM"
-registries:
-  type: "docker-registry"
-  url: "registry.redhat.io"
-  username: "${{ secrets.REDHAT_USERNAME }}"
-  password: "${{ secrets.REDHAT_PASSWORD }}"
+    # Optional: Focus only on Red Hat images
+    ignore:
+      - dependency-name: "*/*/*"
+        versions: ["*"]  # Ignore non-Red Hat images
+      - dependency-name: "!registry.access.redhat.com/*"  # Whitelist Red Hat
