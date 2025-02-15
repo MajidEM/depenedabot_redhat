@@ -5,7 +5,13 @@
 
 version: 2
 updates:
-  - package-ecosystem: "docker" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "docker"
+    directory: "/"
     schedule:
-      interval: "dai.y"
+      interval: "daily"
+    registries:
+      redhat:
+        type: "docker-registry"
+        url: "registry.redhat.io"
+        username: "${{ secrets.REDHAT_USERNAME }}"
+        password: "${{ secrets.REDHAT_PASSWORD }}"
