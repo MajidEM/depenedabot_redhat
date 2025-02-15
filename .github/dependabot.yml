@@ -14,7 +14,3 @@ updates:
     schedule:
       interval: "daily"
     # Optional: Focus only on Red Hat images
-    ignore:
-      - dependency-name: "*/*/*"
-        versions: ["*"]  # Ignore non-Red Hat images
-      - dependency-name: "!registry.access.redhat.com/*"  # Whitelist Red Hat
